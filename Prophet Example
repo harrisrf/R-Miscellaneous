@@ -1,0 +1,19 @@
+library(prophet)
+library(lubridate)
+library(dplyr)
+
+df <- read.csv(file = '/Users/ryanharris/Desktop/za_ubs.csv', stringsAsFactors = FALSE)
+dates <- dmy(as.data.frame(matrix(unlist(strsplit(x = df$Date.Time, split = ' ')), ncol=2, byrow=TRUE))[,2])
+
+mydf <- data.frame(dates, df$UBs)
+colnames(mydf) <- c('ds', 'y')
+
+m <- prophet(mydf)
+future <- make_future_dataframe(m, periods = 365)
+forecast <- predict(m, future)
+
+tail(forecast)
+
+plot(m, forecast)
+
+prophet_plot_components(m, forecast)
