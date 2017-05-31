@@ -1,2 +1,2 @@
 # R-Miscellaneous
-R programs that have come in useful
+R program that have been useful.
